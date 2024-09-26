@@ -24,9 +24,11 @@ const __dirname = path.dirname(__filename);
 /**
  * Download dump file from given URL and save it to the destination path
  *
+ * Function written with assist from chatGPT
+ *
  * @param url url to download the dump file
  * @param destination destination path to save the dump file
- * @returns Promise<boolean>
+ * @returns true if the file is downloaded successfully, false otherwise
  */
 async function downloadDumpFile(url: string, destination: string): Promise<boolean> {
   // ensure destination directory exists
@@ -61,7 +63,6 @@ async function downloadDumpFile(url: string, destination: string): Promise<boole
  *
  * @param file path to the tar.gz file
  * @param destination destination directory to extract the file
- * @returns Promise<void>
  */
 async function extractDumpFile(file: string, destination: string): Promise<void> {
   return pipeline(
@@ -73,11 +74,6 @@ async function extractDumpFile(file: string, destination: string): Promise<void>
   );
 }
 
-/**
- * Process the data dump and add the data to the SQLite database
- *
- * @returns Promise<void>
- */
 export async function processDataDump() {
   // create a temporary directory to store the dump file
   const tempDir: string = path.join(__dirname, "tmp");

@@ -39,6 +39,8 @@ export async function readCSVFile(filePath: string): Promise<Company[]> {
 /**
  * Writes and saves the JSON object to a file
  *
+ * Used chatGPT's code as a reference
+ *
  * @param filePath path to store JSON file
  * @param data JSON object to write
  * @returns void
@@ -77,11 +79,9 @@ export function getLinkedIn(html: string, links: cheerio.Cheerio<cheerio.Element
   const $ = cheerio.load(html);
 
   // Filter out all links that are not LinkedIn profile
-  const linkedInLink: cheerio.Cheerio<cheerio.Element> = $(links).filter(
-    (i: number, el: cheerio.Element) => {
-      return el.attribs.title === "LinkedIn profile";
-    }
-  );
+  const linkedInLink: cheerio.Cheerio<cheerio.Element> = $(links).filter((i: number, el: cheerio.Element) => {
+    return el.attribs.title === "LinkedIn profile";
+  });
 
   // Return empty string if no LinkedIn profile found
   if (linkedInLink.length === 0) {

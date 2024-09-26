@@ -15,7 +15,9 @@ import { Browser, Page, chromium } from "playwright";
 import { readCSVFile, writeJSONFile, getLinkedIn, hasOpenJobs } from "./helpers";
 
 /**
- * Load HTML of webpage
+ * Load HTML of webpage with chromium since YC website appears to be dynamically rendered with JavaScript
+ *
+ * Used chatGPT's code as a reference when creating this function
  *
  * @param url Url of webpage
  * @returns HTML string of webpage
@@ -38,7 +40,7 @@ async function loadHTML(url: string): Promise<string> {
  * Scrapes the basic company information
  *
  * @param html HTML string of webpage
- * @returns
+ * @returns Basic company information object
  */
 function getBasicCompanyInformation(html: string): BasicCompanyInfo {
   const $ = cheerio.load(html);
@@ -69,10 +71,10 @@ function getBasicCompanyInformation(html: string): BasicCompanyInfo {
 }
 
 /**
- * Gets the founders of the company
+ * Scrapes the founders of the company and their LinkedIn profiles
  *
  * @param html HTML string of webpage
- * @returns
+ * @returns array of founders
  */
 function getCompanyFounders(html: string): Founder[] {
   const $ = cheerio.load(html);
@@ -80,7 +82,7 @@ function getCompanyFounders(html: string): Founder[] {
 
   // first possibility of finding the founders
   let targetDiv: cheerio.Cheerio<cheerio.Element>;
-  targetDiv = $("div").filter((i, el) => {
+  targetDiv = $("div").filter((i: number, el: cheerio.Element) => {
     return $(el).text() === "Active Founders";
   });
 
@@ -123,7 +125,7 @@ function getCompanyFounders(html: string): Founder[] {
 }
 
 /**
- * Get open job listings at the company
+ * Scrape open job listings at the company
  *
  * @param html HTML string of webpage
  * @param companyName name of the company
@@ -154,7 +156,7 @@ function getOpenJobs(html: string, companyName: string): JobData[] {
 }
 
 /**
- * Get the company launches
+ * Scrape the basic company launches data
  *
  * @param html HTML string of webpage
  * @returns the company launches
@@ -182,7 +184,7 @@ function getCompanyLaunches(html: string): BasicLaunchData[] {
 }
 
 /**
- * Get the launch details like author, tagline, date posted, and tags
+ * Scrape the launch details like author, tagline, date posted, and tags
  *
  * @param html HTML string of webpage
  * @returns Launch details
@@ -210,7 +212,7 @@ function getLaunchDetails(html: string): LaunchDetails {
 }
 
 /**
- * Get the news articles
+ * Scrape the news articles
  *
  * @param html HTML string of webpage
  * @returns News articles
