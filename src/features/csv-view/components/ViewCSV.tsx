@@ -8,6 +8,7 @@ import {
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 
@@ -80,9 +81,14 @@ function ViewCSV({ csvData }: { csvData: any[] }) {
       </TableContainer>
 
       <Box display="flex" justifyContent="space-between" sx={{ margin: 2 }}>
-        <Button variant="outlined" sx={{ textTransform: "none" }} onClick={downloadAsJSON}>
-          Download as JSON
-        </Button>
+        <Box display="flex" flexDirection="column">
+          <Typography variant="caption" component="p" padding={1}>
+            Be aware: Currently large csv files will not download as JSON properly.
+          </Typography>
+          <Button variant="outlined" sx={{ textTransform: "none", width: "50%" }} onClick={downloadAsJSON}>
+            Download as JSON
+          </Button>
+        </Box>
         <TablePagination
           component="div"
           count={csvData.length}
