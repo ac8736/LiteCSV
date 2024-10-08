@@ -23,6 +23,8 @@
     "baseUrl": "./src",
     "paths": {
       "@features/*": ["features/*"],
+      "@components/*": ["components/*"],
+      "@custom-types/*": ["types/*"],
     },
   },
   "include": ["src"]
