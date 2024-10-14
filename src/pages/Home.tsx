@@ -22,15 +22,13 @@ function Home() {
       <Typography variant="h2" component="h1" textAlign="left">
         LiteCSV
       </Typography>
-      <Typography textAlign="left">
-        An all-in-one place to deal with CSV files. Simply upload your CSV file to use the available tools.
-      </Typography>
+      <Typography textAlign="left">Want to view your CSV file? Just upload to view in a table.</Typography>
 
       <FileInput setProcessing={(isProcessing) => setProcessing(isProcessing)} setRows={(rows) => setRows(rows)} />
 
       <Tabs value={currentTab} onChange={handleTabSwitch}>
         <Tab label="View CSV" />
-        <Tab label="Convert CSV file to SQLite" />
+        {/* <Tab label="Convert CSV file to SQLite" /> */}
       </Tabs>
       <CustomTabPanel value={currentTab} index={0}>
         <ViewCSV csvData={rows} />
